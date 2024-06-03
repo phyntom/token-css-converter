@@ -1,0 +1,14 @@
+{
+  "name": "fullstack-assessment-q1",
+  "engines": {
+    "node": ">=18"
+  },
+  "version": "1.0.0",
+  "main": "parse.js",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node --test"
+  }
+}

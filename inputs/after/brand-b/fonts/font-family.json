@@ -1,0 +1,15 @@
+{
+  "font": {
+    "family": {
+      "title": {
+        "value": "Burbank Big Regular Black"
+      },
+      "body": {
+        "value": "Open Sans"
+      },
+      "mono": {
+        "value": "Recursive (Mono Linear)"
+      }
+    }
+  }
+}

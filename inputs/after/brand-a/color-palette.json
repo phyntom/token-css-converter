@@ -1,0 +1,138 @@
+{
+  "color": {
+    "palette": {
+      "white": {
+        "value": "#FFFFFF"
+      },
+      "black": {
+        "value": "#000000"
+      },
+      "gray010": {
+        "value": "#101014"
+      },
+      "gray020": {
+        "value": "#18181C"
+      },
+      "gray030": {
+        "value": "#202024"
+      },
+      "gray040": {
+        "value": "#303034"
+      },
+      "gray050": {
+        "value": "#404044"
+      },
+      "gray060": {
+        "value": "#505054"
+      },
+      "gray070": {
+        "value": "#606064"
+      },
+      "gray080": {
+        "value": "#707074"
+      },
+      "gray090": {
+        "value": "#808084"
+      },
+      "gray100": {
+        "value": "#96969A"
+      },
+      "gray110": {
+        "value": "#BEBEC2"
+      },
+      "gray120": {
+        "value": "#E6E6EA"
+      },
+      "gray130": {
+        "value": "#EEEEF1"
+      },
+      "blue100": {
+        "value": "#1793CB"
+      },
+      "blue200": {
+        "value": "#26BBFF"
+      },
+      "blue300": {
+        "value": "#61CDFF"
+      },
+      "lime100": {
+        "value": "#8BAF3B"
+      },
+      "lime200": {
+        "value": "#A9D34F"
+      },
+      "lime300": {
+        "value": "#BFDE7C"
+      },
+      "yellow100": {
+        "value": "#DDA419"
+      },
+      "yellow200": {
+        "value": "#FFC229"
+      },
+      "yellow300": {
+        "value": "#FFD15C"
+      },
+      "red100": {
+        "value": "#D5263B"
+      },
+      "red200": {
+        "value": "#FF3F56"
+      },
+      "red300": {
+        "value": "#FF6173"
+      },
+      "pink200": {
+        "value": "#FE54BA"
+      },
+      "pink300": {
+        "value": "#FE73C7"
+      },
+      "purple200": {
+        "value": "#BE3DFF"
+      },
+      "purple300": {
+        "value": "#D480FF"
+      },
+      "indigo200": {
+        "value": "#7371FF"
+      },
+      "indigo300": {
+        "value": "#ABA9FF"
+      },
+      "cyan200": {
+        "value": "#43DAC2"
+      },
+      "cyan300": {
+        "value": "#89E8D8"
+      },
+      "green200": {
+        "value": "#45C761"
+      },
+      "green300": {
+        "value": "#70D586"
+      },
+      "amber200": {
+        "value": "#FF8E1F"
+      },
+      "amber300": {
+        "value": "#FFB162"
+      },
+      "orange200": {
+        "value": "#FD6535"
+      },
+      "orange300": {
+        "value": "#FD7E56"
+      },
+      "brown200": {
+        "value": "#B2715D"
+      },
+      "brown300": {
+        "value": "#C8988A"
+      },
+      "transparent": {
+        "value": "#00000000"
+      }
+    }
+  }
+}

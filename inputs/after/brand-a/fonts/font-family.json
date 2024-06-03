@@ -1,0 +1,18 @@
+{
+  "font": {
+    "family": {
+      "primary": {
+        "value": "Inter",
+        "comment": "Primary font family. Use on body copy and captions."
+      },
+      "secondary": {
+        "value": "Inter Tight",
+        "comment": "Secondary font family. Use on headlines."
+      },
+      "mono": {
+        "value": "Recursive Mono",
+        "comment": "Monospace font family for code examples/snippets."
+      }
+    }
+  }
+}

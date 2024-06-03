@@ -1,0 +1,40 @@
+{
+  "size": {
+    "borderRadius": {
+      "05": {
+        "value": "2px"
+      },
+      "1": {
+        "value": "4px"
+      },
+      "15": {
+        "value": "6px"
+      },
+      "2": {
+        "value": "8px"
+      },
+      "25": {
+        "value": "10px"
+      },
+      "3": {
+        "value": "12px"
+      },
+      "half": {
+        "value": "50%",
+        "comment": "For components that require a circular shape like radio buttons and avatars."
+      },
+      "full": {
+        "value": "9999px",
+        "comment": "For fully rounded corners in components like badges and progress indicators."
+      }
+    },
+    "borderWidth": {
+      "025": {
+        "value": "1px"
+      },
+      "05": {
+        "value": "2px"
+      }
+    }
+  }
+}

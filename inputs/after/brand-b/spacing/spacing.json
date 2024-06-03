@@ -1,0 +1,28 @@
+{
+  "size": {
+    "borderRadius": {
+      "sm": {
+        "px": { "value": "2px" },
+        "rem": { "value": "0.125rem" }
+      },
+      "lg": {
+        "px": { "value": "4px" },
+        "rem": { "value": "0.25rem" }
+      }
+    },
+    "borderWidth": {
+      "sm": {
+        "px": { "value": "2px" },
+        "rem": { "value": "0.125rem" }
+      },
+      "md": {
+        "px": { "value": "4px" },
+        "rem": { "value": "0.25rem" }
+      },
+      "lg": {
+        "px": { "value": "8px" },
+        "rem": { "value": "0.5rem" }
+      }
+    }
+  }
+}
