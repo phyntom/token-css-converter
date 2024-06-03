@@ -200,21 +200,14 @@ export async function processFiles(dirPath, outPath) {
  * @returns {void}
  */
 export async function  generateCssVariables(inputPath, outputPath) {
-    const readPath = path.join(__dirname, inputPath)
-    const writePath = path.join(__dirname, outputPath)
-    const inputString = await fs.readFile(readPath, "utf-8");
-    const inputJson = JSON.parse(inputString);
-    const outputString = parse(inputJson);
-    fs.writeFileSync(writePath, outputString);
-}
-
-// maybeCreateOutDirectory(outDirectory);
-// await generateCssVariables(inputFilePath, path.join(outDirectory, outFile));
-
-(async ()=>{
     const readPath = path.resolve(__dirname,inputFilePath)
     const writePath = path.join(__dirname, outDirectory)
-    console.log(readPath)
     await processFiles(readPath,writePath)
+}
+
+
+(async ()=>{
+    maybeCreateOutDirectory(outDirectory);
+    generateCssVariables(inputFilePath,outDirectory)
 })();
 
