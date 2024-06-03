@@ -100,8 +100,60 @@ async function readFileWithStream(fileName) {
         return null;
     }
 }
-
-
+/**
+ * asynchronous function that write into file using stream
+ * used stream
+ * @param {string} dir
+ * @param {string} content
+ * @returns {Promise<void>}
+ */
+async function writeFile(dir, content) {
+    try {
+        const fileStream = fs.createWriteStream(dir, {flags: 'a+'});
+        fileStream.write(content);
+        fileStream.close();
+    } catch (error) {
+        console.error('Error while writing file %s | %s', dir, error.message);
+    }
+}
+/**
+ * function that read directory and map all the files inside to
+ * the top level directories
+ * @param {string} dir
+ * @param {string[]}topLevelDir
+ * @param {Map<string,string[]>} groupedFilesByDirNames
+ * @returns {Promise<Map<any, any>|null>}
+ */
+async function readAndMapFiles(dir, topLevelDir, groupedFilesByDirNames = new Map()) {
+    try {
+        await fs.promises.access(dir, fs.constants.R_OK); // check if the content is accessible
+        const contents = await fs.promises.readdir(dir, {encoding: 'utf-8'});
+        // read the dir content
+        for (const content of contents) {
+            const pathToFile = path.join(dir, content);
+            // check if the path is directory
+            if (isDir(pathToFile)) {
+                // recursively read the contents of the directory
+                await readAndMapFiles(pathToFile, topLevelDir, groupedFilesByDirNames);
+            } else if (await isFile(pathToFile) && path.extname(pathToFile) === '.json') { // check if the give path if file
+                for (const topLevelDirName of topLevelDir) {
+                    // we check for every file which topLevel directory name it belongs to
+                    if (pathToFile.indexOf(topLevelDirName) !== -1) {
+                        if (!groupedFilesByDirNames.has(topLevelDirName)) {
+                            groupedFilesByDirNames.set(topLevelDirName, []);
+                        }
+                        // map the file to the corresponding top level directory name
+                        groupedFilesByDirNames.get(topLevelDirName).push(pathToFile);
+                    }
+                }
+            }
+        }
+        return groupedFilesByDirNames;
+    } catch (error) {
+        console.error('Error while reading in the directory %s | %s', dir, error.message);
+        return null
+    }
+}
 /**
  * Writes a CSS variables file to output path
  * @param {string} inputPath - Path (beneath library directory) from which the file will be read
