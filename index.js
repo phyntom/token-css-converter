@@ -1,11 +1,12 @@
 import * as url from "node:url";
-import fs from "node:fs";
+import fs from 'node:fs';
 import path from "node:path";
-import {parse} from "./parse.js";
+import {parse, parseVariables} from "./parse.js";
+import * as constants from "node:constants";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
-const inputFilePath = "inputs/before/input.json";
+const inputFilePath = "inputs/after/";
 const outDirectory = "dist";
 const outFile = "tokens.css";
 
@@ -100,6 +101,7 @@ async function readFileWithStream(fileName) {
         return null;
     }
 }
+
 /**
  * asynchronous function that write into file using stream
  * used stream
@@ -107,7 +109,7 @@ async function readFileWithStream(fileName) {
  * @param {string} content
  * @returns {Promise<void>}
  */
-async function writeFile(dir, content) {
+export async function writeFile(dir, content) {
     try {
         const fileStream = fs.createWriteStream(dir, {flags: 'a+'});
         fileStream.write(content);
@@ -154,22 +156,65 @@ async function readAndMapFiles(dir, topLevelDir, groupedFilesByDirNames = new Ma
         return null
     }
 }
+
+/**
+ * function that will process the files and store them in file names after the toplevel dir
+ * @param {string} dirPath
+ * @param {string} outPath
+ * @returns {Promise<void>}
+ */
+
+/**
+ * function that will process the files and store them in file names after the toplevel dir
+ * @param {string} dirPath
+ * @param {string} outPath
+ * @returns {Promise<void>}
+ */
+export async function processFiles(dirPath, outPath) {
+    try{
+        const topLevelDirs = await getTopLevelDirNames(dirPath)
+        const groupedFilesByDirNames = await readAndMapFiles(dirPath, topLevelDirs, new Map())
+        if(groupedFilesByDirNames !== null && groupedFilesByDirNames.size > 0){
+            for(const [groupName,v ] of groupedFilesByDirNames?.entries()){
+                const groupedFiles = groupedFilesByDirNames.get(groupName)
+                let fileContent = ":root {"
+                for await (const groupFile of groupedFiles){
+                    const content = await readFileWithStream(groupFile)
+                    const cssVariable = parseVariables(JSON.parse(content))
+                    fileContent+=cssVariable;
+                }
+                fileContent+="\n}"
+                await writeFile(path.resolve(__dirname,outPath,`${groupName}.css`),fileContent)
+            }
+        }
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
 /**
  * Writes a CSS variables file to output path
  * @param {string} inputPath - Path (beneath library directory) from which the file will be read
  * @param {string} outputPath - Path (beneath library directory) to which the file will be written
  * @returns {void}
  */
-export function generateCssVariables(inputPath, outputPath) {
+export async function  generateCssVariables(inputPath, outputPath) {
     const readPath = path.join(__dirname, inputPath)
     const writePath = path.join(__dirname, outputPath)
-
-    const inputString = fs.readFileSync(readPath, "utf-8");
+    const inputString = await fs.readFile(readPath, "utf-8");
     const inputJson = JSON.parse(inputString);
     const outputString = parse(inputJson);
-
     fs.writeFileSync(writePath, outputString);
 }
 
-maybeCreateOutDirectory(outDirectory);
-generateCssVariables(inputFilePath, path.join(outDirectory, outFile))
+// maybeCreateOutDirectory(outDirectory);
+// await generateCssVariables(inputFilePath, path.join(outDirectory, outFile));
+
+(async ()=>{
+    const readPath = path.resolve(__dirname,inputFilePath)
+    const writePath = path.join(__dirname, outDirectory)
+    console.log(readPath)
+    await processFiles(readPath,writePath)
+})();
+
