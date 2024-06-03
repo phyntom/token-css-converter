@@ -56,6 +56,27 @@ function isDir(filePath) { // in case we would like to implement reading file re
 }
 
 /**
+ * function that will get the top level directories
+ * to be used when creating fileNames
+ * @param {string} dir
+ * @returns {Promise<*[]>}
+ */
+async function getTopLevelDirNames(dir) {
+    try {
+        // check if the content is accessible
+        await fs.promises.access(dir, fs.constants.R_OK);
+        // read the dir content
+        const contents = await fs.promises.readdir(dir, {encoding: 'utf-8'});
+        // return only first directories names
+        const topLevelDir = [...contents.map(content => path.join(dir, content)).filter(filePath => isDir(filePath))];
+        return topLevelDir.map(topDir => path.basename(topDir))
+    } catch (err) {
+        console.log(err);
+        return []
+    }
+}
+
+/**
  * Writes a CSS variables file to output path
  * @param {string} inputPath - Path (beneath library directory) from which the file will be read
  * @param {string} outputPath - Path (beneath library directory) to which the file will be written
