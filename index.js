@@ -77,6 +77,32 @@ async function getTopLevelDirNames(dir) {
 }
 
 /**
+ * function that is used to read individual file using stream
+ * this is not a requirement but in case the file is big stream
+ * may be efficient
+ * @param {string} fileName
+ * @returns {Promise<null|string>}
+ */
+async function readFileWithStream(fileName) {
+    try {
+        let fileContent = ""
+        await fs.promises.access(fileName, constants.R_OK);
+        const fileReadStream = fs.createReadStream(fileName, {
+            highWaterMark: 16384,
+            encoding: 'utf-8'
+        });
+        for await (const chunk of fileReadStream) {
+            fileContent += chunk.toString();
+        }
+        return fileContent;
+    } catch (error) {
+        console.error('Error while reading file %s | %s', fileName, error.message);
+        return null;
+    }
+}
+
+
+/**
  * Writes a CSS variables file to output path
  * @param {string} inputPath - Path (beneath library directory) from which the file will be read
  * @param {string} outputPath - Path (beneath library directory) to which the file will be written
