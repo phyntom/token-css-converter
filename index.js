@@ -41,6 +41,21 @@ async function isFile(fileName) {
 }
 
 /**
+ * asynchronously check if the give file is directory
+ * @param filePath
+ * @returns {*|boolean}
+ */
+function isDir(filePath) { // in case we would like to implement reading file recursively from scratch
+    try {
+        const stats = fs.statSync(filePath);
+        return stats.isDirectory();
+    } catch (error) {
+        console.error('cannot find file directory.');
+        return false;
+    }
+}
+
+/**
  * Writes a CSS variables file to output path
  * @param {string} inputPath - Path (beneath library directory) from which the file will be read
  * @param {string} outputPath - Path (beneath library directory) to which the file will be written
